@@ -200,6 +200,9 @@ const audioSearchBtn = document.querySelector('.audio-search-btn');
 const ITEMS_PER_PAGE = 20;
 let currentPage = 1;
 
+// Initialize the grid with pagination on page load
+filterAssets();
+
 // Create pagination controls
 function createPaginationControls() {
     const totalPages = Math.ceil(sampleAssets.length / ITEMS_PER_PAGE);
@@ -539,6 +542,8 @@ tabs.forEach(tab => {
         tabs.forEach(t => t.classList.remove('active'));
         // Add active class to clicked tab
         tab.classList.add('active');
+        // Reset to first page when switching tabs
+        currentPage = 1;
         // Filter assets based on new active tab
         filterAssets();
     });
