@@ -840,35 +840,6 @@ header {
     border-color: var(--primary-color);
 }
 
-.example-images {
-    text-align: center;
-}
-
-.example-images p {
-    color: #666;
-    margin-bottom: 1rem;
-}
-
-.example-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.example-grid img {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.example-grid img:hover {
-    transform: scale(1.05);
-}
-
 /* Toast Notification */
 .toast {
     position: fixed;

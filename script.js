@@ -737,13 +737,6 @@ imageUrlInput.addEventListener('paste', (e) => {
     }
 });
 
-// Example images click handler
-document.querySelectorAll('.example-grid img').forEach(img => {
-    img.addEventListener('click', () => {
-        handleVisualSearchUrl(img.src);
-    });
-});
-
 function handleVisualSearch(file) {
     // Here you would implement the actual visual search functionality
     console.log('Processing visual search with file:', file.name);
