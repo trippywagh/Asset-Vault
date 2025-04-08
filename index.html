@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EdTech Asset Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="top-bar">
+        <button class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="home-button">
+            <i class="fas fa-home"></i>
+        </button>
+        <h1 class="top-bar-title">Asset Library</h1>
+    </div>
+    <div class="container">
+        <header>
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search assets...">
+                    <button class="clear-search" id="clearSearch">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="search-actions">
+                        <button class="visual-search-btn" title="Visual Search">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <button class="audio-search-btn" title="Audio Search">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="upload-btn">Upload Asset</button>
+            </div>
+            <nav class="header-navigation">
+                <div class="tabs">
+                    <button class="tab active" data-type="all">
+                        <i class="fas fa-th"></i>
+                        <span>All</span>
+                        <span class="count">40k</span>
+                    </button>
+                    <button class="tab" data-type="image">
+                        <i class="fas fa-image"></i>
+                        <span>Images</span>
+                        <span class="count">764</span>
+                    </button>
+                    <button class="tab" data-type="video">
+                        <i class="fas fa-video"></i>
+                        <span>Videos</span>
+                        <span class="count">616k</span>
+                    </button>
+                    <button class="tab" data-type="3d">
+                        <i class="fas fa-cube"></i>
+                        <span>3D</span>
+                        <span class="count">855</span>
+                    </button>
+                    <button class="tab" data-type="text">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Text</span>
+                        <span class="count">324</span>
+                    </button>
+                </div>
+                <div class="filter-container">
+                    <button class="filter-button">
+                        <i class="fas fa-chevron-up"></i>
+                        <i class="fas fa-chevron-down"></i>
+                        <span>Sort by Most Relevant</span>
+                    </button>
+                    <div class="filter-dropdown">
+                        <h3 class="filter-title">Sort by</h3>
+                        <div class="filter-options">
+                            <div class="filter-option active" data-value="most-relevant">
+                                <i class="fas fa-check"></i>
+                                <span>Most Relevant</span>
+                            </div>
+                            <div class="filter-option" data-value="highest-rated">
+                                <i class="fas fa-check"></i>
+                                <span>Highest Rated</span>
+                            </div>
+                            <div class="filter-option" data-value="most-recent">
+                                <i class="fas fa-check"></i>
+                                <span>Most Recent</span>
+                            </div>
+                            <div class="filter-option" data-value="most-used">
+                                <i class="fas fa-check"></i>
+                                <span>Most Used</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="asset-grid">
+            <!-- Asset cards will be inserted here by JavaScript -->
+        </main>
+    </div>
+
+    <!-- Upload Modal -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Upload New Asset</h2>
+                <span class="close" onclick="closeUploadModal()">&times;</span>
+            </div>
+            <form id="uploadForm">
+                <div class="file-upload-container">
+                    <div class="upload-area">
+                        <div class="upload-icon">
+                            <i class="fas fa-arrow-up-from-bracket"></i>
+                        </div>
+                        <p class="upload-text">Click to upload or drag and drop</p>
+                        <p class="upload-formats">SVG, PNG, JPG, GIF, MP4 (MAX. 100MB)</p>
+                        <button type="button" class="select-file-btn">Select File</button>
+                        <input type="file" id="fileInput" hidden onchange="handleFileUpload(event)">
+                    </div>
+                    <p class="auto-generate-notice">
+                        <i class="fas fa-magic"></i>
+                        AI will auto-generate details after file upload
+                    </p>
+                </div>
+
+                <div class="form-fields disabled">
+                    <div class="form-group">
+                        <label for="title">
+                            Title
+                            <span class="auto-badge">Auto-generated</span>
+                        </label>
+                        <input type="text" id="title" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">
+                            Description
+                            <span class="auto-badge">Auto-generated</span>
+                        </label>
+                        <textarea id="description" disabled></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="tags">
+                            Tags
+                            <span class="auto-badge">Auto-generated</span>
+                        </label>
+                        <input type="text" id="tags" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="assetType">
+                            Asset Type
+                            <span class="auto-badge">Auto-detected</span>
+                        </label>
+                        <select id="assetType" disabled>
+                            <option value="image">Image</option>
+                            <option value="video">Video</option>
+                            <option value="3d">3D Object</option>
+                            <option value="gif">GIF</option>
+                            <option value="text">Text</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="cancel-btn" onclick="closeUploadModal()">Cancel</button>
+                    <button type="submit" class="upload-submit-btn" disabled>Upload Asset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Visual Search Modal -->
+    <div id="visualSearchModal" class="modal">
+        <div class="modal-content visual-search-content">
+            <div class="modal-header">
+                <h2>Visual Search</h2>
+                <span class="close" onclick="closeVisualSearchModal()">&times;</span>
+            </div>
+            <div class="visual-search-container">
+                <div class="visual-search-area">
+                    <div class="upload-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <p class="upload-text">Drag and drop your image here</p>
+                    <p class="upload-formats">or paste image or URL</p>
+                    <button type="button" class="select-file-btn">Browse</button>
+                    <input type="file" id="visualSearchInput" hidden accept="image/*">
+                </div>
+                <div class="paste-url-container">
+                    <input type="text" id="imageUrlInput" placeholder="Paste image URL">
+                </div>
+                <div class="example-images">
+                    <p>Or try one of the examples below:</p>
+                    <div class="example-grid">
+                        <img src="https://picsum.photos/150/100?random=1" alt="Example 1">
+                        <img src="https://picsum.photos/150/100?random=2" alt="Example 2">
+                        <img src="https://picsum.photos/150/100?random=3" alt="Example 3">
+                        <img src="https://picsum.photos/150/100?random=4" alt="Example 4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
