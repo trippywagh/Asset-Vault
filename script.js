@@ -5,168 +5,216 @@ const sampleAssets = [
         title: "Math Equation Example",
         type: "image",
         thumbnail: "https://images.unsplash.com/photo-1596495577886-d920f1fb7238?w=500&h=400&fit=crop",
-        tags: ["math", "equation", "algebra"]
+        tags: ["math", "equation", "algebra"],
+        views: 1247,
+        downloads: 342
     },
     {
         id: 2,
         title: "Physics Experiment Video",
         type: "video",
         thumbnail: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=500&h=400&fit=crop",
-        tags: ["physics", "experiment", "video"]
+        tags: ["physics", "experiment", "video"],
+        views: 2891,
+        downloads: 567
     },
     {
         id: 3,
         title: "3D Human Anatomy",
         type: "3d",
         thumbnail: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=500&h=400&fit=crop",
-        tags: ["biology", "anatomy", "3d"]
+        tags: ["biology", "anatomy", "3d"],
+        views: 4532,
+        downloads: 891
     },
     {
         id: 4,
         title: "Chemistry Lab Manual",
         type: "text",
         thumbnail: "https://images.unsplash.com/photo-1554475900-0a0350e3fc7b?w=500&h=400&fit=crop",
-        tags: ["chemistry", "lab", "manual"]
+        tags: ["chemistry", "lab", "manual"],
+        views: 978,
+        downloads: 234
     },
     {
         id: 5,
         title: "Historical Timeline",
         type: "image",
         thumbnail: "https://images.unsplash.com/photo-1447069387593-a5de0862481e?w=500&h=400&fit=crop",
-        tags: ["history", "timeline", "social studies"]
+        tags: ["history", "timeline", "social studies"],
+        views: 3421,
+        downloads: 678
     },
     {
         id: 6,
         title: "Programming Tutorial",
         type: "text",
         thumbnail: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&h=400&fit=crop",
-        tags: ["coding", "computer science", "tutorial"]
+        tags: ["coding", "computer science", "tutorial"],
+        views: 5678,
+        downloads: 1243
     },
     {
         id: 7,
         title: "Geography Atlas",
         type: "image",
         thumbnail: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=500&h=400&fit=crop",
-        tags: ["geography", "maps", "world"]
+        tags: ["geography", "maps", "world"],
+        views: 2134,
+        downloads: 456
     },
     {
         id: 8,
         title: "Music Theory Basics",
         type: "video",
         thumbnail: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=500&h=400&fit=crop",
-        tags: ["music", "theory", "arts"]
+        tags: ["music", "theory", "arts"],
+        views: 3567,
+        downloads: 789
     },
     {
         id: 9,
         title: "Solar System Model",
         type: "3d",
         thumbnail: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=500&h=400&fit=crop",
-        tags: ["astronomy", "space", "science"]
+        tags: ["astronomy", "space", "science"],
+        views: 6789,
+        downloads: 1567
     },
     {
         id: 10,
         title: "Literature Anthology",
         type: "text",
         thumbnail: "https://images.unsplash.com/photo-1474932430478-367dbb6832c1?w=500&h=400&fit=crop",
-        tags: ["literature", "english", "books"]
+        tags: ["literature", "english", "books"],
+        views: 1876,
+        downloads: 432
     },
     {
         id: 11,
         title: "Cell Biology Animation",
         type: "video",
         thumbnail: "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=500&h=400&fit=crop",
-        tags: ["biology", "cell", "animation"]
+        tags: ["biology", "cell", "animation"],
+        views: 4321,
+        downloads: 876
     },
     {
         id: 12,
         title: "Ancient Egypt Virtual Tour",
         type: "3d",
         thumbnail: "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?w=500&h=400&fit=crop",
-        tags: ["history", "egypt", "virtual tour"]
+        tags: ["history", "egypt", "virtual tour"],
+        views: 7890,
+        downloads: 1432
     },
     {
         id: 13,
         title: "Quantum Physics Guide",
         type: "text",
         thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&h=400&fit=crop",
-        tags: ["physics", "quantum", "advanced"]
+        tags: ["physics", "quantum", "advanced"],
+        views: 2345,
+        downloads: 567
     },
     {
         id: 14,
         title: "Art History Timeline",
         type: "image",
         thumbnail: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?w=500&h=400&fit=crop",
-        tags: ["art", "history", "culture"]
+        tags: ["art", "history", "culture"],
+        views: 3456,
+        downloads: 789
     },
     {
         id: 15,
         title: "DNA Structure Model",
         type: "3d",
         thumbnail: "https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=500&h=400&fit=crop",
-        tags: ["biology", "genetics", "molecular"]
+        tags: ["biology", "genetics", "molecular"],
+        views: 5432,
+        downloads: 987
     },
     {
         id: 16,
         title: "World War II Documentary",
         type: "video",
         thumbnail: "https://images.unsplash.com/photo-1517697471339-4aa32003c11a?w=500&h=400&fit=crop",
-        tags: ["history", "war", "documentary"]
+        tags: ["history", "war", "documentary"],
+        views: 8901,
+        downloads: 1654
     },
     {
         id: 17,
         title: "Periodic Table Interactive",
         type: "3d",
         thumbnail: "https://images.unsplash.com/photo-1603126857599-f6e157fa2fe6?w=500&h=400&fit=crop",
-        tags: ["chemistry", "elements", "interactive"]
+        tags: ["chemistry", "elements", "interactive"],
+        views: 4567,
+        downloads: 876
     },
     {
         id: 18,
         title: "Shakespeare Collection",
         type: "text",
         thumbnail: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=500&h=400&fit=crop",
-        tags: ["literature", "shakespeare", "plays"]
+        tags: ["literature", "shakespeare", "plays"],
+        views: 3210,
+        downloads: 654
     },
     {
         id: 19,
         title: "Marine Biology Study",
         type: "image",
         thumbnail: "https://images.unsplash.com/photo-1534766555764-ce878a5e3a2b?w=500&h=400&fit=crop",
-        tags: ["biology", "ocean", "marine"]
+        tags: ["biology", "ocean", "marine"],
+        views: 2987,
+        downloads: 543
     },
     {
         id: 20,
         title: "Geometric Patterns",
         type: "image",
         thumbnail: "https://images.unsplash.com/photo-1544616326-a041e9e3b348?w=500&h=400&fit=crop",
-        tags: ["math", "geometry", "patterns"]
+        tags: ["math", "geometry", "patterns"],
+        views: 4123,
+        downloads: 765
     },
     {
         id: 21,
         title: "French Language Course",
         type: "video",
         thumbnail: "https://images.unsplash.com/photo-1505678261036-a3fcc5e884ee?w=500&h=400&fit=crop",
-        tags: ["language", "french", "learning"]
+        tags: ["language", "french", "learning"],
+        views: 6543,
+        downloads: 1234
     },
     {
         id: 22,
         title: "Climate Change Data",
         type: "text",
         thumbnail: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=500&h=400&fit=crop",
-        tags: ["science", "climate", "environment"]
+        tags: ["science", "climate", "environment"],
+        views: 3789,
+        downloads: 876
     },
     {
         id: 23,
         title: "Ancient Rome Architecture",
         type: "3d",
         thumbnail: "https://images.unsplash.com/photo-1515861461225-1488dfdaf0a8?w=500&h=400&fit=crop",
-        tags: ["history", "architecture", "rome"]
+        tags: ["history", "architecture", "rome"],
+        views: 5678,
+        downloads: 1098
     },
     {
         id: 24,
         title: "Psychology Basics",
         type: "text",
         thumbnail: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500&h=400&fit=crop",
-        tags: ["psychology", "mental health", "science"]
+        tags: ["psychology", "mental health", "science"],
+        views: 4321,
+        downloads: 876
     }
 ];
 
@@ -329,37 +377,40 @@ function initializeGrid() {
 }
 
 // Create an asset card
-function createAssetCard(asset) {
-    const activeTab = document.querySelector('.tab.active').getAttribute('data-type');
+function createAssetCard(asset, isRecommended = false, parentElement = assetGrid) {
     const card = document.createElement('div');
-    card.className = 'asset-card';
+    card.className = `asset-card ${asset.type}-asset`;
+    if (isRecommended) card.classList.add('recommended-card');
+    card.setAttribute('data-id', asset.id);
+    
+    // Create card content
     card.innerHTML = `
-        ${activeTab === 'all' ? `
-        <div class="asset-type-badge">
-            <i class="fas ${getTypeIcon(asset.type)}"></i>
-            <span>${asset.type}</span>
-        </div>
-        ` : ''}
-        <img src="${asset.thumbnail}" 
-             alt="${asset.title}" 
-             class="asset-thumbnail"
-             data-fallback="${asset.type.toUpperCase()} Preview"
-             onerror="this.onerror=null; this.src=''; this.setAttribute('data-fallback', '${asset.type.toUpperCase()} Preview')">
-        <div class="thumbnail-actions">
-            <button class="action-btn bookmark-btn" data-tooltip="Bookmark">
-                <i class="fas fa-bookmark"></i>
-            </button>
-            <button class="action-btn copy-btn" data-tooltip="Copy URL">
-                <i class="fas fa-link"></i>
-            </button>
-            <button class="action-btn download-btn" data-tooltip="Download">
-                <i class="fas fa-download"></i>
-            </button>
+        <div class="asset-thumbnail-container">
+            <img src="${asset.thumbnail}" 
+                 alt="${asset.title}" 
+                 class="asset-thumbnail"
+                 onerror="this.onerror=null; this.src=''; this.parentElement.classList.add('fallback'); this.parentElement.setAttribute('data-type', '${asset.type.toUpperCase()}')">
+            ${isRecommended ? '<span class="recommended-badge"><i class="fas fa-star"></i></span>' : ''}
+            <div class="asset-type-badge">
+                <i class="fas ${getTypeIcon(asset.type)}"></i>
+                ${asset.type}
+            </div>
+            <div class="thumbnail-actions">
+                <button class="action-btn bookmark-btn" data-tooltip="Bookmark">
+                    <i class="fas fa-bookmark"></i>
+                </button>
+                <button class="action-btn copy-btn" data-tooltip="Copy URL">
+                    <i class="fas fa-link"></i>
+                </button>
+                <button class="action-btn download-btn" data-tooltip="Download">
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
         </div>
         <div class="asset-info">
-            <h3 class="asset-title">${asset.title}</h3>
+            <h3 class="asset-title">${asset.title || 'Untitled Asset'}</h3>
             <div class="asset-tags">
-                ${asset.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                ${asset.tags.filter(tag => tag !== 'recommended').map(tag => `<span class="tag">${tag}</span>`).join('')}
             </div>
         </div>
     `;
@@ -379,7 +430,6 @@ function createAssetCard(asset) {
 
     copyBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        // In a real app, this would be the actual asset URL
         const dummyUrl = `https://yourdomain.com/assets/${asset.id}`;
         navigator.clipboard.writeText(dummyUrl)
             .then(() => showToast('URL copied to clipboard'))
@@ -388,11 +438,11 @@ function createAssetCard(asset) {
 
     downloadBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        // In a real app, this would trigger the actual download
         showToast('Downloading asset...');
     });
 
-    assetGrid.appendChild(card);
+    parentElement.appendChild(card);
+    return card;
 }
 
 function getTypeIcon(type) {
