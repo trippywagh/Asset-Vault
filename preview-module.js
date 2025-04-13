@@ -22,25 +22,31 @@ class PreviewModule {
                 <i class="fas fa-times"></i>
             </button>
             <div class="preview-modal-content">
-                <div class="preview-header">
-                    <div class="preview-title"></div>
-                    <div class="preview-actions">
-                        <button class="action-btn bookmark-btn" data-tooltip="Bookmark">
-                            <i class="fas fa-bookmark"></i>
-                        </button>
-                        <button class="action-btn copy-btn" data-tooltip="Copy URL">
-                            <i class="fas fa-link"></i>
-                        </button>
-                        <button class="action-btn download-btn" data-tooltip="Download">
-                            <i class="fas fa-download"></i>
-                        </button>
+                <div class="preview-main-section">
+                    <div class="preview-header">
+                        <div class="preview-title"></div>
+                        <div class="preview-actions">
+                            <button class="action-btn bookmark-btn" data-tooltip="Bookmark">
+                                <i class="fas fa-bookmark"></i>
+                            </button>
+                            <button class="action-btn copy-btn" data-tooltip="Copy URL">
+                                <i class="fas fa-link"></i>
+                            </button>
+                            <button class="action-btn download-btn" data-tooltip="Download">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="preview-body">
+                        <div class="preview-media"></div>
+                        <div class="preview-info">
+                            <div class="preview-tags"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="preview-body">
-                    <div class="preview-media"></div>
-                    <div class="preview-info">
-                        <div class="preview-tags"></div>
-                    </div>
+                <div class="preview-related-section">
+                    <h2>Related Assets</h2>
+                    <div class="related-assets-grid"></div>
                 </div>
             </div>
         `;
