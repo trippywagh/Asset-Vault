@@ -452,11 +452,11 @@ header {
 }
 
 .tag {
-    background-color: #f1f5f9;
+    background-color: #e2e8f0;
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
     font-size: 0.75rem;
-    color: #64748b;
+    color: #475569;
     font-weight: 500;
 }
 
@@ -1004,61 +1004,65 @@ header {
 
 .preview-modal-content {
     position: relative;
-    width: 90%;
-    max-width: 1200px;
-    height: 90vh;
+    width: 95%;
+    max-width: 1400px;
+    height: 95vh;
     margin: auto;
     background: white;
     border-radius: 1rem;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    overflow-y: auto;
+    display: block;
 }
 
 .preview-main-section {
-    flex: 1;
-    min-height: 0;
+    min-height: 70vh;
     background-color: #f8fafc;
-    overflow: auto;
+    padding-bottom: 2rem;
 }
 
 .preview-body {
     display: flex;
     gap: 2rem;
-    padding: 1.5rem;
-    height: calc(100% - 80px); /* Subtract header height */
-    overflow: auto;
+    padding: 2rem;
+    height: calc(100% - 80px);
+    max-height: none;
+    overflow: visible;
 }
 
 .preview-media {
-    flex: 1;
+    flex: 1.5;
     min-width: 0;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    background: transparent;
+   
 }
 
 .preview-media img,
 .preview-media video {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 70vh;
     object-fit: contain;
+    border-radius: 0.5rem;
 }
 
 .preview-info {
-    width: 300px;
+    width: 350px;
     padding: 1.5rem;
     border-left: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
     background: white;
-    overflow-y: auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    height: fit-content;
+    color: var(--text-color);
 }
 
-/* Preview Info Metadata Styles */
 .metadata-section {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     padding: 0 0 16px;
     border-bottom: 1px solid #e2e8f0;
 }
@@ -1092,19 +1096,10 @@ header {
     font-weight: 500;
 }
 
-/* Stats Section */
 .stats-section {
-    display: flex;
-    gap: 24px;
     margin-bottom: 8px;
     padding: 0 0 16px;
     border-bottom: 1px solid #e2e8f0;
-}
-
-.stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .stat-value {
@@ -1119,7 +1114,6 @@ header {
     margin-top: 4px;
 }
 
-/* Featured Section */
 .featured-section {
     margin-bottom: 8px;
     padding: 0 0 16px;
@@ -1145,7 +1139,6 @@ header {
     padding: 4px 12px;
     border-radius: 16px;
     font-size: 13px;
-    transition: all 0.2s ease;
 }
 
 .featured-item:hover {
@@ -1162,23 +1155,21 @@ header {
 }
 
 .preview-tags .tag {
-    background: #f1f5f9;
-    color: #64748b;
-    padding: 0.5rem 1rem;
+    background: #e2e8f0;
+    color: #475569;
+    padding: 0.5rem 0.6rem;
     border-radius: 6px;
     font-size: 0.875rem;
-    transition: all 0.2s ease;
-    cursor: pointer;
 }
 
 .preview-tags .tag:hover {
-    background: #e2e8f0;
-    color: var(--text-primary);
+    background: #cbd5e1;
+    color: #1e293b;
 }
 
 .preview-related-section {
     background: white;
-    padding: 2rem;
+    padding: 1rem 2rem;
     border-top: 1px solid var(--border-color);
 }
 
@@ -1191,9 +1182,92 @@ header {
 
 .related-assets-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
-    margin-top: 1rem;
+}
+
+.related-asset-card {
+    position: relative;
+    background: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.related-asset-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.related-asset-thumbnail-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: #f1f5f9;
+}
+
+.related-asset-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.related-asset-type {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    text-transform: capitalize;
+}
+
+.related-asset-info {
+    padding: 1rem;
+}
+
+.related-asset-title {
+    font-weight: 500;
+    color: #1a1a1a;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.related-asset-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Thumbnail Hover Actions for related assets */
+.related-asset-card .thumbnail-actions {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 2;
+}
+
+.related-asset-card:hover .thumbnail-actions {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .preview-header {
@@ -1271,28 +1345,54 @@ header {
 }
 
 /* Update responsive styles */
-@media (max-width: 768px) {
-    .close-preview {
-        top: 16px;
-        right: 16px;
-    }
-
+@media (max-width: 1024px) {
     .preview-body {
         flex-direction: column;
+        padding: 1.5rem;
         height: auto;
     }
 
     .preview-info {
         width: 100%;
         border-left: none;
-        border-top: 1px solid var(--border-color);
+        margin-top: 1.5rem;
     }
 
     .preview-media {
-        height: 50vh;
+        width: 100%;
+    }
+
+    .preview-media img,
+    .preview-media video {
+        max-height: 60vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .preview-modal {
+        padding: 1rem;
+    }
+
+    .preview-modal-content {
+        width: 100%;
+        height: 98vh;
+    }
+
+    .preview-body {
+        padding: 1rem;
+    }
+
+    .preview-media img,
+    .preview-media video {
+        max-height: 50vh;
+    }
+
+    .preview-related-section {
+        padding: 2rem 1rem;
     }
 
     .related-assets-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1rem;
     }
 } 

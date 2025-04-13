@@ -108,6 +108,7 @@ class PreviewModule {
         const title = this.previewModal.querySelector('.preview-title');
         const media = this.previewModal.querySelector('.preview-media');
         const info = this.previewModal.querySelector('.preview-info');
+        const relatedGrid = this.previewModal.querySelector('.related-assets-grid');
 
         // Update title
         title.textContent = this.currentAsset.title || 'Untitled Asset';
@@ -186,6 +187,14 @@ class PreviewModule {
                     .join('')}
             </div>
         `;
+
+        // Update related assets grid
+        relatedGrid.innerHTML = '';
+        const relatedAssets = this.getRelatedAssets();
+        relatedAssets.forEach(asset => {
+            const card = this.createRelatedAssetCard(asset);
+            relatedGrid.appendChild(card);
+        });
     }
 
     getFeaturedList() {
@@ -193,6 +202,105 @@ class PreviewModule {
         return featuredIn
             .map(item => `<span class="featured-item">${item}</span>`)
             .join('');
+    }
+
+    getRelatedAssets() {
+        // Filter out current asset and get assets with similar tags
+        return sampleAssets
+            .filter(asset => asset.id !== this.currentAsset.id)
+            .filter(asset => {
+                const commonTags = asset.tags.filter(tag => 
+                    this.currentAsset.tags.includes(tag)
+                );
+                return commonTags.length > 0;
+            })
+            .slice(0, 4); // Show up to 4 related assets
+    }
+
+    createRelatedAssetCard(asset) {
+        const card = document.createElement('div');
+        card.className = 'related-asset-card';
+        card.setAttribute('data-id', asset.id);
+
+        card.innerHTML = `
+            <div class="related-asset-thumbnail-container">
+                <img src="${asset.thumbnail}" 
+                     alt="${asset.title}" 
+                     class="related-asset-thumbnail"
+                     loading="lazy"
+                     onerror="this.onerror=null; this.src=''; this.parentElement.classList.add('fallback')">
+                <div class="related-asset-type">
+                    <i class="fas ${this.getTypeIcon(asset.type)}"></i>
+                    ${asset.type}
+                </div>
+                <div class="thumbnail-actions">
+                    <button class="action-btn bookmark-btn" data-tooltip="Bookmark">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                    <button class="action-btn copy-btn" data-tooltip="Copy URL">
+                        <i class="fas fa-link"></i>
+                    </button>
+                    <button class="action-btn download-btn" data-tooltip="Download">
+                        <i class="fas fa-download"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="related-asset-info">
+                <h4 class="related-asset-title">${asset.title || 'Untitled Asset'}</h4>
+                <div class="related-asset-tags">
+                    ${asset.tags
+                        .filter(tag => tag !== 'recommended')
+                        .slice(0, 2)
+                        .map(tag => `<span class="tag">${tag}</span>`)
+                        .join('')}
+                </div>
+            </div>
+        `;
+
+        // Add click event to open preview
+        card.addEventListener('click', (e) => {
+            if (!e.target.closest('.thumbnail-actions')) {
+                this.openPreview(asset);
+            }
+        });
+
+        // Add action button event listeners
+        const bookmarkBtn = card.querySelector('.bookmark-btn');
+        const copyBtn = card.querySelector('.copy-btn');
+        const downloadBtn = card.querySelector('.download-btn');
+
+        bookmarkBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            bookmarkBtn.classList.toggle('active');
+            const isBookmarked = bookmarkBtn.classList.contains('active');
+            bookmarkBtn.style.color = isBookmarked ? '#2563eb' : '#64748b';
+            showToast(isBookmarked ? 'Asset bookmarked' : 'Bookmark removed');
+        });
+
+        copyBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const dummyUrl = `https://yourdomain.com/assets/${asset.id}`;
+            navigator.clipboard.writeText(dummyUrl)
+                .then(() => showToast('URL copied to clipboard'))
+                .catch(() => showToast('Failed to copy URL'));
+        });
+
+        downloadBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showToast('Downloading asset...');
+        });
+
+        return card;
+    }
+
+    getTypeIcon(type) {
+        const iconMap = {
+            'image': 'fa-image',
+            'video': 'fa-video',
+            '3d': 'fa-cube',
+            'text': 'fa-file-alt'
+        };
+        return iconMap[type] || 'fa-file';
     }
 }
 
