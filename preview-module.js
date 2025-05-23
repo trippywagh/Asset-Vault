@@ -183,10 +183,29 @@ class PreviewModule {
             <div class="preview-tags">
                 ${this.currentAsset.tags
                     .filter(tag => tag !== 'recommended')
-                    .map(tag => `<span class="tag">${tag}</span>`)
+                    .map(tag => `<span class="tag" role="button" tabindex="0">${tag}</span>`)
                     .join('')}
             </div>
         `;
+
+        // Add click handlers for tags
+        info.querySelectorAll('.preview-tags .tag').forEach(tagElement => {
+            tagElement.addEventListener('click', (e) => {
+                const tag = e.target.textContent;
+                addFilter(tag);
+                this.closePreview();
+            });
+            
+            // Add keyboard support
+            tagElement.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const tag = e.target.textContent;
+                    addFilter(tag);
+                    this.closePreview();
+                }
+            });
+        });
 
         // Update related assets grid
         relatedGrid.innerHTML = '';
@@ -251,7 +270,7 @@ class PreviewModule {
                     ${asset.tags
                         .filter(tag => tag !== 'recommended')
                         .slice(0, 2)
-                        .map(tag => `<span class="tag">${tag}</span>`)
+                        .map(tag => `<span class="tag" role="button" tabindex="0">${tag}</span>`)
                         .join('')}
                 </div>
             </div>
@@ -259,9 +278,29 @@ class PreviewModule {
 
         // Add click event to open preview
         card.addEventListener('click', (e) => {
-            if (!e.target.closest('.thumbnail-actions')) {
+            if (!e.target.closest('.thumbnail-actions') && !e.target.closest('.tag')) {
                 this.openPreview(asset);
             }
+        });
+
+        // Add click handlers for tags in related cards
+        card.querySelectorAll('.tag').forEach(tagElement => {
+            tagElement.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const tag = e.target.textContent;
+                addFilter(tag);
+                this.closePreview();
+            });
+            
+            // Add keyboard support
+            tagElement.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const tag = e.target.textContent;
+                    addFilter(tag);
+                    this.closePreview();
+                }
+            });
         });
 
         // Add action button event listeners
@@ -310,7 +349,7 @@ const previewModule = new PreviewModule();
 // Add click handler to asset cards
 document.addEventListener('click', (e) => {
     const assetCard = e.target.closest('.asset-card');
-    if (assetCard) {
+    if (assetCard && !e.target.closest('.thumbnail-actions') && !e.target.closest('.tag')) {
         const assetId = assetCard.getAttribute('data-id');
         const asset = sampleAssets.find(a => a.id === parseInt(assetId));
         if (asset) {

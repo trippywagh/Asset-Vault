@@ -248,6 +248,9 @@ const audioSearchBtn = document.querySelector('.audio-search-btn');
 const ITEMS_PER_PAGE = 20;
 let currentPage = 1;
 
+// Add at the top with other global variables
+let selectedFilters = new Set();
+
 // Initialize the grid with pagination on page load
 filterAssets();
 
@@ -410,10 +413,31 @@ function createAssetCard(asset, isRecommended = false, parentElement = assetGrid
         <div class="asset-info">
             <h3 class="asset-title">${asset.title || 'Untitled Asset'}</h3>
             <div class="asset-tags">
-                ${asset.tags.filter(tag => tag !== 'recommended').map(tag => `<span class="tag">${tag}</span>`).join('')}
+                ${asset.tags
+                    .filter(tag => tag !== 'recommended')
+                    .map(tag => `<span class="tag" role="button" tabindex="0">${tag}</span>`)
+                    .join('')}
             </div>
         </div>
     `;
+
+    // Add click handlers for tags
+    card.querySelectorAll('.tag').forEach(tagElement => {
+        tagElement.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const tag = e.target.textContent;
+            addFilter(tag);
+        });
+        
+        // Add keyboard support
+        tagElement.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const tag = e.target.textContent;
+                addFilter(tag);
+            }
+        });
+    });
 
     // Add event listeners for the action buttons
     const bookmarkBtn = card.querySelector('.bookmark-btn');
@@ -493,7 +517,11 @@ function filterAssets() {
         
         const matchesType = activeTab === 'all' || asset.type === activeTab;
         
-        return matchesSearch && matchesType;
+        // Add check for selected tag filters
+        const matchesTags = selectedFilters.size === 0 || 
+                          asset.tags.some(tag => selectedFilters.has(tag));
+        
+        return matchesSearch && matchesType && matchesTags;
     });
     
     // Calculate pagination
@@ -812,4 +840,57 @@ visualSearchModal.addEventListener('click', (e) => {
     if (e.target === visualSearchModal) {
         closeVisualSearchModal();
     }
+});
+
+// Add this function to handle adding a filter
+function addFilter(tag) {
+    if (!selectedFilters.has(tag)) {
+        selectedFilters.add(tag);
+        updateFilterPills();
+        filterAssets();
+    }
+}
+
+// Add this function to handle removing a filter
+function removeFilter(tag) {
+    selectedFilters.delete(tag);
+    updateFilterPills();
+    filterAssets();
+}
+
+// Update the updateFilterPills function
+function updateFilterPills() {
+    const filterContainer = document.getElementById('selectedFilters');
+    const filtersContainer = document.querySelector('.selected-filters-container');
+    const clearAllBtn = document.getElementById('clearAllFilters');
+    
+    filterContainer.innerHTML = '';
+    
+    selectedFilters.forEach(tag => {
+        const pill = document.createElement('div');
+        pill.className = 'filter-pill';
+        pill.innerHTML = `
+            ${tag}
+            <button class="remove-filter" aria-label="Remove filter">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        
+        pill.querySelector('.remove-filter').addEventListener('click', () => {
+            removeFilter(tag);
+        });
+        
+        filterContainer.appendChild(pill);
+    });
+    
+    // Toggle container visibility and clear all button
+    filtersContainer.classList.toggle('has-filters', selectedFilters.size > 0);
+    clearAllBtn.style.display = selectedFilters.size > 0 ? 'block' : 'none';
+}
+
+// Add click handler for clear all filters
+document.getElementById('clearAllFilters').addEventListener('click', () => {
+    selectedFilters.clear();
+    updateFilterPills();
+    filterAssets();
 }); 
