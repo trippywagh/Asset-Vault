@@ -481,24 +481,20 @@ function getTypeIcon(type) {
 
 // Toast notification function
 function showToast(message) {
-    // Remove existing toast if any
-    const existingToast = document.querySelector('.toast');
-    if (existingToast) {
-        existingToast.remove();
-    }
-
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
     document.body.appendChild(toast);
-
-    // Add show class after a small delay to trigger animation
-    setTimeout(() => toast.classList.add('show'), 10);
-
-    // Remove toast after 3 seconds
+    
+    // Trigger reflow to enable transition
+    toast.offsetHeight;
+    toast.classList.add('show');
+    
     setTimeout(() => {
         toast.classList.remove('show');
-        setTimeout(() => toast.remove(), 300);
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
     }, 3000);
 }
 
@@ -742,8 +738,17 @@ visualSearchBtn.addEventListener('click', () => {
 
 // Handle audio search
 audioSearchBtn.addEventListener('click', () => {
-    // TODO: Implement audio search functionality
-    console.log('Audio search clicked');
+    if (!recognition) {
+        showToast('Speech recognition is not supported in your browser');
+        return;
+    }
+
+    if (audioSearchBtn.classList.contains('listening')) {
+        recognition.stop();
+    } else {
+        recognition.start();
+        audioSearchBtn.classList.add('listening');
+    }
 });
 
 // Search input handler
@@ -893,4 +898,68 @@ document.getElementById('clearAllFilters').addEventListener('click', () => {
     selectedFilters.clear();
     updateFilterPills();
     filterAssets();
-}); 
+});
+
+// Voice recognition setup
+let recognition = null;
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+    recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+        const searchBar = document.querySelector('.search-bar');
+        searchBar.classList.add('listening');
+        searchInput.setAttribute('placeholder', 'Listening...');
+        
+        // Create or update listening indicator
+        let indicator = searchBar.querySelector('.listening-indicator');
+        if (!indicator) {
+            indicator = document.createElement('div');
+            indicator.className = 'listening-indicator';
+            indicator.innerHTML = `
+                <div class="listening-pulse"></div>
+                <div class="listening-pulse"></div>
+                <div class="listening-pulse"></div>
+            `;
+            searchBar.appendChild(indicator);
+        }
+    };
+
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        searchInput.value = transcript;
+        
+        // If it's a final result, trigger the search
+        if (event.results[0].isFinal) {
+            filterAssets();
+            stopListening();
+        }
+    };
+
+    recognition.onerror = (event) => {
+        console.error('Speech recognition error:', event.error);
+        showToast('Error: Could not recognize speech');
+        stopListening();
+    };
+
+    recognition.onend = () => {
+        stopListening();
+    };
+}
+
+// Function to stop listening and reset UI
+function stopListening() {
+    const searchBar = document.querySelector('.search-bar');
+    searchBar.classList.remove('listening');
+    searchInput.setAttribute('placeholder', 'Search assets...');
+    
+    // Remove listening indicator
+    const indicator = searchBar.querySelector('.listening-indicator');
+    if (indicator) {
+        indicator.remove();
+    }
+    
+    audioSearchBtn.classList.remove('listening');
+} 

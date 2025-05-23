@@ -45,13 +45,64 @@ header {
     background-color: #f1f3f4;
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
     position: relative;
 }
 
-.search-bar:focus-within {
+/* Add listening state styles */
+.search-bar.listening {
     background-color: white;
     box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.search-bar.listening #searchInput::placeholder {
+    color: var(--primary-color);
+}
+
+/* Listening indicator styles */
+.listening-indicator {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: 8px;
+}
+
+.listening-pulse {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    animation: pulse-animation 1.4s ease infinite;
+}
+
+.listening-pulse:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.listening-pulse:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes pulse-animation {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.4;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Update audio search button styles */
+.audio-search-btn.listening {
+    color: var(--primary-color);
+    background-color: rgba(35, 58, 108, 0.1);
+    border-radius: 50%;
 }
 
 .search-icon {
@@ -840,7 +891,7 @@ header {
     border-color: var(--primary-color);
 }
 
-/* Toast Notification */
+/* Toast Notification Styles */
 .toast {
     position: fixed;
     bottom: 2rem;
@@ -854,6 +905,10 @@ header {
     z-index: 1000;
     opacity: 0;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .toast.show {
